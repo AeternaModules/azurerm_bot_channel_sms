@@ -1,6 +1,6 @@
-variable "bot_channel_smss" {
+variable "bot_channel_smses" {
   description = <<EOT
-Map of bot_channel_smss, attributes below
+Map of bot_channel_smses, attributes below
 Required:
     - bot_name
     - location

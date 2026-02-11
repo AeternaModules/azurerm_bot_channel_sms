@@ -1,5 +1,5 @@
-resource "azurerm_bot_channel_sms" "bot_channel_smss" {
-  for_each = var.bot_channel_smss
+resource "azurerm_bot_channel_sms" "bot_channel_smses" {
+  for_each = var.bot_channel_smses
 
   bot_name                        = each.value.bot_name
   location                        = each.value.location
