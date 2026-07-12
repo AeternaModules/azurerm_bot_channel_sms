@@ -8,15 +8,19 @@ Required:
     - resource_group_name
     - sms_channel_account_security_id
     - sms_channel_auth_token
+    - sms_channel_auth_token_key_vault_id (alternative to sms_channel_auth_token - read from Key Vault instead)
+    - sms_channel_auth_token_key_vault_secret_name (alternative to sms_channel_auth_token - read from Key Vault instead)
 EOT
 
   type = map(object({
-    bot_name                        = string
-    location                        = string
-    phone_number                    = string
-    resource_group_name             = string
-    sms_channel_account_security_id = string
-    sms_channel_auth_token          = string
+    bot_name                                     = string
+    location                                     = string
+    phone_number                                 = string
+    resource_group_name                          = string
+    sms_channel_account_security_id              = string
+    sms_channel_auth_token                       = string
+    sms_channel_auth_token_key_vault_id          = optional(string)
+    sms_channel_auth_token_key_vault_secret_name = optional(string)
   }))
   validation {
     condition = alltrue([
