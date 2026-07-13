@@ -8,8 +8,8 @@ Required:
     - resource_group_name
     - sms_channel_account_security_id
     - sms_channel_auth_token
-    - sms_channel_auth_token_key_vault_id (alternative to sms_channel_auth_token - read from Key Vault instead)
-    - sms_channel_auth_token_key_vault_secret_name (alternative to sms_channel_auth_token - read from Key Vault instead)
+    - sms_channel_auth_token_key_vault_id (optional, alternative to sms_channel_auth_token)
+    - sms_channel_auth_token_key_vault_secret_name (optional, alternative to sms_channel_auth_token)
 EOT
 
   type = map(object({
@@ -22,30 +22,6 @@ EOT
     sms_channel_auth_token_key_vault_id          = optional(string)
     sms_channel_auth_token_key_vault_secret_name = optional(string)
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.bot_channel_smses : (
-        length(v.phone_number) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.bot_channel_smses : (
-        length(v.sms_channel_account_security_id) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
-  validation {
-    condition = alltrue([
-      for k, v in var.bot_channel_smses : (
-        length(v.sms_channel_auth_token) > 0
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_bot_channel_sms's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -78,5 +54,14 @@ EOT
   #   source:    [from validate.BotName: invalid when len(value) > 42]
   # path: bot_name
   #   source:    [from validate.BotName] !regexp.MustCompile(`^[a-zA-Z0-9][a-zA-Z0-9_-]*$`).MatchString(v)
+  # path: phone_number
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: sms_channel_account_security_id
+  #   condition: length(value) > 0
+  #   message:   must not be empty
+  # path: sms_channel_auth_token
+  #   condition: length(value) > 0
+  #   message:   must not be empty
 }
 
