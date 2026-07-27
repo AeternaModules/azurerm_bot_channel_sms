@@ -1,6 +1,6 @@
-variable "bot_channel_smses" {
+variable "bot_channel_sms" {
   description = <<EOT
-Map of bot_channel_smses, attributes below
+Map of bot_channel_sms, attributes below
 Required:
     - bot_name
     - location
@@ -24,7 +24,7 @@ EOT
   }))
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.resource_group_name) <= 90
       )
     ])
@@ -32,7 +32,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         !endswith(v.resource_group_name, ".")
       )
     ])
@@ -40,7 +40,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.resource_group_name) != 0
       )
     ])
@@ -48,7 +48,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.bot_name) >= 4
       )
     ])
@@ -56,7 +56,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.bot_name) <= 42
       )
     ])
@@ -64,7 +64,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.phone_number) > 0
       )
     ])
@@ -72,7 +72,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.sms_channel_account_security_id) > 0
       )
     ])
@@ -80,7 +80,7 @@ EOT
   }
   validation {
     condition = alltrue([
-      for k, v in var.bot_channel_smses : (
+      for k, v in var.bot_channel_sms : (
         length(v.sms_channel_auth_token) > 0
       )
     ])

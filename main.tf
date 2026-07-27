@@ -1,10 +1,10 @@
 data "azurerm_key_vault_secret" "sms_channel_auth_token" {
-  for_each     = { for k, v in var.bot_channel_smses : k => v if v.sms_channel_auth_token_key_vault_id != null && v.sms_channel_auth_token_key_vault_secret_name != null }
+  for_each     = { for k, v in var.bot_channel_sms : k => v if v.sms_channel_auth_token_key_vault_id != null && v.sms_channel_auth_token_key_vault_secret_name != null }
   name         = each.value.sms_channel_auth_token_key_vault_secret_name
   key_vault_id = each.value.sms_channel_auth_token_key_vault_id
 }
-resource "azurerm_bot_channel_sms" "bot_channel_smses" {
-  for_each = var.bot_channel_smses
+resource "azurerm_bot_channel_sms" "bot_channel_sms" {
+  for_each = var.bot_channel_sms
 
   bot_name                        = each.value.bot_name
   location                        = each.value.location
